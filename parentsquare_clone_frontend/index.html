@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VirCommuter</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="background-animate"></div>
+
+    <div class="container" id="main-container">
+        <header id="dashboard-header" style="display: none;">
+            <div class="header-info">
+                <h1 id="app-title">VirCommuter</h1>
+                <h2 id="welcome-message"></h2>
+            </div>
+            <button id="theme-toggle" class="theme-toggle-button">Toggle Theme</button>
+        </header>
+
+        <div id="login-section" class="section" style="display: block;">
+            <h1 class="login-title">VirCommuter</h1>
+            <p class="login-subtitle">Your Digital Community Platform</p>
+            <form id="login-form" class="cool-form">
+                <div class="form-group">
+                    <input type="email" id="email" required>
+                    <label for="email">Email</label>
+                </div>
+                <div class="form-group">
+                    <input type="password" id="password" required>
+                    <label for="password">Password</label>
+                </div>
+                <button type="submit" class="submit-button">Log In</button>
+            </form>
+        </div>
+
+        <div id="student-dashboard-section" class="section">
+            <h2>Student Dashboard</h2>
+            <div id="posts-list" class="card-container"></div>
+        </div>
+
+        <div id="teacher-dashboard-section" class="section">
+            <h2>Teacher Dashboard</h2>
+            <form id="post-form" class="cool-form">
+                <div class="form-group">
+                    <input type="text" id="post-title" required>
+                    <label for="post-title">Title</label>
+                </div>
+                <div class="form-group">
+                    <textarea id="post-content" rows="4" required></textarea>
+                    <label for="post-content">Content</label>
+                </div>
+                <button type="submit" class="submit-button">Create Post</button>
+            </form>
+        </div>
+
+        <div id="parent-dashboard-section" class="section">
+            <h2>Parent Dashboard</h2>
+            <div id="parent-posts-list" class="card-container"></div>
+        </div>
+        
+        <div id="admin-dashboard-section" class="section">
+            <h2>Admin Dashboard</h2>
+            <div id="admin-posts-list" class="card-container"></div>
+        </div>
+
+        <button id="logout-button" style="display: none;" class="action-button">Log Out</button>
+    </div>
+    
+    <div id="toast-container"></div>
+
+    <script src="main.js"></script>
+</body>
+</html>

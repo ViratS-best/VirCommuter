@@ -1,0 +1,573 @@
+/* VERY OVER-DRAMATIFIED CYBERPUNK THEME - MULTI-COLOR DOTS */
+
+/* Color Variables & Gradients */
+:root {
+    --bg-color-1: #0a0e19;
+    --bg-color-2: #161e2f;
+    --text-color: #e2e8f0;
+    --card-bg: rgba(25, 30, 45, 0.8);
+    --card-border: rgba(45, 60, 80, 0.4);
+    --heading-color: #00ffff; /* Cyber-blue */
+    --input-border: #4a90e2;
+    --button-bg: #4a90e2;
+    --button-hover-bg: #6aabff;
+    --delete-button-bg: #ff6347;
+    --delete-button-hover-bg: #ff4d33;
+    --success-color: #28a745;
+    --error-color: #ff6347;
+    --secondary-text: #7f8c8d;
+    --shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    --hover-shadow: 0 8px 25px rgba(0, 0, 0, 0.7);
+    --glow-color: #00ffff;
+    --secondary-glow-color: #ff00ff; /* NEW: A vibrant magenta/pink glow */
+}
+
+/* Dark Theme (No change needed, this is the dark theme) */
+body.dark-mode {
+    --bg-color-1: #0a0e19;
+    --bg-color-2: #161e2f;
+    --text-color: #e2e8f0;
+    --card-bg: rgba(25, 30, 45, 0.8);
+    --card-border: rgba(45, 60, 80, 0.4);
+    --heading-color: #8a2be2; /* Cyber-purple */
+    --input-border: #8a2be2;
+    --button-bg: #8a2be2;
+    --button-hover-bg: #a252e8;
+    --delete-button-bg: #ff6347;
+    --delete-button-hover-bg: #ff4d33;
+    --success-color: #28a745;
+    --error-color: #e53e3e;
+    --secondary-text: #a0aec0;
+    --shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    --hover-shadow: 0 8px 25px rgba(0, 0, 0, 0.7);
+    --glow-color: #8a2be2;
+    --secondary-glow-color: #f06292; /* NEW: A softer pink glow */
+}
+
+/* General Body and Layout */
+body {
+    font-family: 'Poppins', sans-serif;
+    color: var(--text-color);
+    background-color: var(--bg-color-1);
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    overflow: hidden;
+    position: relative;
+    perspective: 1000px;
+}
+
+/* Subtle particle overlay (NOW MORE VISIBLE) */
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNSIgaGVpZ2h0PSI1IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxnIGZpbGw9IiNmZmZmZmYiIGZpbGwtb3BhY2l0eT0iMC4yIj48Y2lyY2xlIGN4PSIyIiBjeT0iMiIgcj0iMC41Ii8+PC9nPjwvc3ZnPg==') repeat;
+    pointer-events: none;
+    animation: particle-move 50s linear infinite;
+    z-index: 100;
+}
+@keyframes particle-move {
+    from { background-position: 0 0; }
+    to { background-position: 500px 500px; }
+}
+
+/* NEW: Multi-colored, varied-size glowing dot background */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        /* Main, large, pulsing dots */
+        radial-gradient(circle at top left, var(--glow-color) 0%, transparent 60%),
+        /* Secondary, smaller dots */
+        radial-gradient(circle at bottom right, var(--secondary-glow-color) 0%, transparent 50%),
+        /* Tertiary, dispersed dots */
+        radial-gradient(circle at top right, var(--glow-color) 0%, transparent 70%),
+        /* Quaternary, subtle dots */
+        radial-gradient(circle at bottom left, var(--secondary-glow-color) 0%, transparent 60%);
+    
+    background-size: 
+        150px 150px, /* Bigger dots */
+        100px 100px, /* Medium dots */
+        80px 80px,   /* Smaller dots */
+        120px 120px;  /* Another medium size */
+
+    background-position: 
+        0% 0%, 
+        100% 100%, 
+        100% 0%, 
+        0% 100%;
+
+    animation: dot-pulse 10s ease-in-out infinite alternate;
+    z-index: -1;
+    opacity: 0.25;
+}
+
+@keyframes dot-pulse {
+    from { transform: scale(1); opacity: 0.25; }
+    to { transform: scale(1.1); opacity: 0.4; }
+}
+
+/* Login box entrance animation */
+.container {
+    background: var(--card-bg);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid var(--card-border);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+    width: 100%;
+    max-width: 900px;
+    text-align: center;
+    transition: all 0.5s ease;
+    z-index: 10;
+    transform: translateY(-100vh);
+    animation: container-fly-in 1.5s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
+}
+
+/* Keyframes for the dramatic entrance */
+@keyframes container-fly-in {
+    from { transform: translateY(-100vh); }
+    to { transform: translateY(0); }
+}
+
+/* Header and Theme Toggle */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+    gap: 10px;
+    border-bottom: 2px solid var(--card-border);
+    padding-bottom: 20px;
+}
+
+.header-info {
+    text-align: left;
+}
+
+.theme-toggle-button {
+    background: transparent;
+    border: 2px solid var(--button-bg);
+    color: var(--text-color);
+    padding: 10px 20px;
+    border-radius: 50px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.theme-toggle-button::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    width: calc(100% + 2px);
+    height: calc(100% + 2px);
+    background: var(--button-bg);
+    z-index: -1;
+    transition: transform 0.3s ease;
+    transform: scale(0);
+    transform-origin: center;
+}
+
+.theme-toggle-button:hover::before {
+    transform: scale(1);
+}
+
+.theme-toggle-button:hover {
+    color: var(--bg-color-1);
+    border-color: transparent;
+}
+
+/* Login Page Styles */
+.login-title {
+    font-size: 3em;
+    font-weight: 700;
+    color: var(--heading-color);
+    margin-bottom: 5px;
+    text-shadow: 0 0 15px var(--glow-color); /* Even stronger glow */
+    animation: heading-glow 1.5s ease-in-out infinite alternate;
+}
+
+/* New glitch effect on the title */
+.login-title.glitch {
+    animation: heading-glitch 0.5s infinite;
+}
+@keyframes heading-glitch {
+    0% { transform: translateX(0); }
+    20% { transform: translateX(-2px); text-shadow: 2px 0 var(--glow-color); }
+    40% { transform: translateX(2px); text-shadow: -2px 0 var(--glow-color); }
+    60% { transform: translateX(-2px); text-shadow: 2px 0 var(--glow-color); }
+    80% { transform: translateX(2px); text-shadow: -2px 0 var(--glow-color); }
+    100% { transform: translateX(0); }
+}
+
+.login-subtitle {
+    font-size: 1.2em;
+    color: var(--secondary-text);
+    margin-bottom: 40px;
+    font-family: 'Courier New', monospace;
+}
+
+/* Forms and Inputs */
+.cool-form {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.form-group {
+    position: relative;
+}
+
+input, textarea {
+    width: 95%;
+    padding: 15px 15px 10px;
+    border: 1px solid var(--input-border);
+    border-radius: 8px;
+    font-size: 1em;
+    background-color: transparent;
+    color: var(--text-color);
+    transition: all 0.3s ease;
+    font-family: 'Courier New', monospace;
+    caret-color: var(--glow-color);
+}
+
+/* The reliable fix for autofill text color */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+textarea:-webkit-autofill:active {
+    -webkit-text-fill-color: var(--text-color) !important;
+    -webkit-box-shadow: 0 0 0px 1000px transparent inset !important;
+    box-shadow: 0 0 0px 1000px transparent inset !important;
+    background-color: transparent !important;
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+label {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--secondary-text);
+    pointer-events: none;
+    transition: all 0.3s ease;
+    font-family: 'Courier New', monospace;
+}
+
+input:focus, textarea:focus {
+    border-color: var(--glow-color);
+    box-shadow: 0 0 10px var(--glow-color), 0 0 5px rgba(0, 255, 255, 0.5);
+    outline: none;
+    animation: input-glow-pulse 1s ease-in-out infinite alternate;
+}
+
+/* New dramatic focus effect with shimmer */
+input:focus, textarea:focus {
+    position: relative;
+}
+input:focus::before, textarea:focus::before {
+    content: '';
+    position: absolute;
+    top: -2px; left: -2px;
+    right: -2px; bottom: -2px;
+    border: 2px solid var(--glow-color);
+    border-radius: 10px;
+    z-index: -1;
+    animation: shimmer 1s infinite;
+}
+@keyframes shimmer {
+    0% { transform: scale(1); opacity: 0.5; }
+    50% { transform: scale(1.05); opacity: 1; }
+    100% { transform: scale(1); opacity: 0.5; }
+}
+
+
+@keyframes input-glow-pulse {
+    from {
+        box-shadow: 0 0 10px var(--glow-color), 0 0 5px rgba(0, 255, 255, 0.3);
+    }
+    to {
+        box-shadow: 0 0 15px var(--glow-color), 0 0 8px rgba(0, 255, 255, 0.7);
+    }
+}
+
+input:focus + label,
+input:not(:placeholder-shown) + label,
+textarea:focus + label,
+textarea:not(:placeholder-shown) + label {
+    top: 5px;
+    font-size: 0.8em;
+    color: var(--glow-color);
+    transform: translateY(0);
+}
+
+/* Over-dramatified button with a moving gradient */
+.submit-button {
+    padding: 15px;
+    font-size: 1.1em;
+    border-radius: 50px;
+    background: linear-gradient(90deg, var(--button-bg) 0%, var(--glow-color) 50%, var(--button-bg) 100%);
+    background-size: 200% 100%;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: background-position 0.4s ease, transform 0.2s;
+    box-shadow: var(--shadow);
+}
+
+.submit-button:hover {
+    background-position: -100% 0;
+    transform: translateY(-2px);
+    box-shadow: var(--hover-shadow);
+}
+
+/* New button press effect */
+.submit-button:active {
+    transform: scale(0.95) translateY(1px);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Dashboard Styles */
+h1 {
+    font-size: 2.5em;
+    font-weight: 700;
+    color: var(--heading-color);
+    margin: 0;
+    text-shadow: 0 0 10px var(--glow-color);
+}
+
+h2 {
+    font-size: 1.5em;
+    font-weight: 500;
+    color: var(--secondary-text);
+    margin: 0;
+}
+
+.role-badge {
+    background-color: var(--heading-color);
+    color: var(--bg-color-1);
+    padding: 4px 12px;
+    border-radius: 50px;
+    font-size: 0.8em;
+    font-weight: 600;
+    margin-left: 10px;
+    display: inline-block;
+    text-shadow: 0 0 3px var(--glow-color);
+}
+
+body.dark-mode .role-badge {
+    color: var(--text-color);
+}
+
+/* Card Container */
+.card-container {
+    margin-top: 30px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+}
+
+/* Cards now have 3D transform on hover */
+.card {
+    background-color: var(--card-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    padding: 25px;
+    text-align: left;
+    box-shadow: var(--shadow);
+    transition: transform 0.5s ease-in-out, box-shadow 0.5s ease, border-color 0.5s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: card-fade-in 0.8s ease-out forwards;
+}
+
+.card:hover {
+    transform: translateY(-5px) scale(1.03) rotateY(15deg);
+    box-shadow: 0 0 20px var(--glow-color);
+    border-color: var(--glow-color);
+}
+
+/* Staggered animation */
+.card:nth-child(1) { animation-delay: 0.1s; }
+.card:nth-child(2) { animation-delay: 0.2s; }
+.card:nth-child(3) { animation-delay: 0.3s; }
+.card:nth-child(4) { animation-delay: 0.4s; }
+.card:nth-child(5) { animation-delay: 0.5s; }
+
+.card h4 {
+    font-size: 1.2em;
+    margin: 0 0 10px;
+    font-weight: 600;
+}
+
+.card p {
+    font-size: 0.95em;
+    line-height: 1.6;
+    color: var(--text-color);
+}
+
+.card small {
+    display: block;
+    margin-top: 15px;
+    color: var(--secondary-text);
+    font-size: 0.8em;
+    line-height: 1.4;
+    font-family: 'Courier New', monospace;
+}
+
+.delete-btn {
+    background-color: var(--delete-button-bg);
+    font-size: 0.8em;
+    padding: 8px 15px;
+    border-radius: 5px;
+    float: right;
+    margin-top: 10px;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.delete-btn:hover {
+    background-color: var(--delete-button-hover-bg);
+}
+
+.action-button {
+    background: var(--button-bg);
+    color: #fff;
+    padding: 12px 20px;
+    font-size: 1em;
+    border-radius: 50px;
+    margin-top: 20px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.action-button:hover {
+    background: var(--button-hover-bg);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Toast Notification Styles */
+#toast-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 10px;
+}
+
+.toast {
+    padding: 15px 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    color: #fff;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInOut 5s ease forwards;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.toast.success {
+    background-color: var(--success-color);
+}
+
+.toast.error {
+    background-color: var(--error-color);
+}
+
+/* Utility Classes & Animations */
+.section {
+    display: none;
+    animation: fadeIn 0.8s ease-out;
+}
+
+.loading, .info {
+    font-weight: 500;
+    margin-top: 20px;
+    color: var(--secondary-text);
+}
+
+.error-message {
+    color: var(--error-color);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes card-fade-in {
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInOut {
+    0% { opacity: 0; transform: translateY(20px); }
+    10% { opacity: 1; transform: translateY(0); }
+    90% { opacity: 1; transform: translateY(0); }
+    100% { opacity: 0; transform: translateY(20px); }
+}
+
+@keyframes heading-glow {
+    from { text-shadow: 0 0 5px var(--glow-color); }
+    to { text-shadow: 0 0 15px var(--glow-color); }
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .container {
+        padding: 20px;
+    }
+    .login-title {
+        font-size: 2.5em;
+    }
+    header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    .header-info {
+        text-align: center;
+    }
+    .theme-toggle-button, .action-button, .submit-button {
+        width: 100%;
+        margin-top: 10px;
+    }
+    .card-container {
+        grid-template-columns: 1fr;
+    }
+}
